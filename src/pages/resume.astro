@@ -1,23 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, experience, skills } from '../data/site';
+import { site, experience, education, projects, achievements, skills } from '../data/site';
+import { emphasize } from '../lib/format';
 ---
 
-<Base title="Resume" description={`Resume of ${site.name}, ${site.role} focused on e-commerce and retail.`}>
+<Base title="Resume" description={`Resume of ${site.name}, ${site.role} at Target working on e-commerce and retail backend systems.`}>
   <article>
     <header>
       <h1>{site.name}</h1>
-      <p class="muted">
-        {site.role} · {site.location} ·
+      <p class="meta muted">
+        <span>{site.role}</span>
+        <span>{site.location}</span>
+      </p>
+      <p class="meta muted">
         <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.links.github}>GitHub</a>
+        {site.links.linkedin && <a href={site.links.linkedin}>LinkedIn</a>}
       </p>
       <button type="button" class="print" onclick="window.print()">Print / Save PDF</button>
     </header>
-
-    <section>
-      <h2 class="eyebrow">Summary</h2>
-      <p>{site.intro}</p>
-    </section>
 
     <section>
       <h2 class="eyebrow">Experience</h2>
@@ -25,13 +26,13 @@ import { site, experience, skills } from '../data/site';
         experience.map((r) => (
           <div class="role">
             <div class="role-head">
-              <h3>{r.title}</h3>
+              <h3>{r.org}</h3>
               <span class="period">{r.period}</span>
             </div>
-            <p class="org muted">{r.org}</p>
+            <p class="org muted">{r.title} · {r.location}</p>
             <ul>
               {r.points.map((p) => (
-                <li>{p}</li>
+                <li set:html={emphasize(p)} />
               ))}
             </ul>
           </div>
@@ -56,6 +57,48 @@ import { site, experience, skills } from '../data/site';
         }
       </dl>
     </section>
+
+    <section>
+      <h2 class="eyebrow">Education</h2>
+      {
+        education.map((e) => (
+          <div class="role">
+            <div class="role-head">
+              <h3>{e.school}</h3>
+              <span class="period">{e.period}</span>
+            </div>
+            <p class="org muted">{e.degree}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2 class="eyebrow">Projects</h2>
+      {
+        projects.map((p) => (
+          <div class="role">
+            <div class="role-head">
+              <h3>{p.name}</h3>
+              <span class="period">{p.period}</span>
+            </div>
+            <p class="org muted">{p.meta}</p>
+            <ul>
+              {p.points.map((pt) => (
+                <li set:html={emphasize(pt)} />
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2 class="eyebrow">Achievements & leadership</h2>
+      <ul>
+        {achievements.map((a) => <li set:html={emphasize(a)} />)}
+      </ul>
+    </section>
   </article>
 </Base>
 
@@ -70,6 +113,17 @@ import { site, experience, skills } from '../data/site';
   }
   header p {
     margin: 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5rem;
+  }
+  .meta > * + *::before {
+    content: '·';
+    margin-right: 0.5rem;
+    display: inline-block;
+    color: var(--muted);
   }
   .print {
     margin-top: 1.25rem;
@@ -91,6 +145,9 @@ import { site, experience, skills } from '../data/site';
   }
   .role + .role {
     margin-top: 1.75rem;
+  }
+  li :global(strong) {
+    font-weight: 600;
   }
   .role-head {
     display: flex;

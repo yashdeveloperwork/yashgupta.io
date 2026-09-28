@@ -5,7 +5,7 @@ pubDate: 2026-09-28
 tags: ['meta']
 ---
 
-Welcome to my corner of the internet. I'm Yash — a software developer working on e-commerce and retail systems at a Fortune 100 company.
+Welcome to my corner of the internet. I'm Yash — a Software Development Engineer at Target, working on backend systems for e-commerce and retail.
 
 ## Why a personal site?
 
@@ -15,9 +15,10 @@ Most of what I learn at work lives in design docs, pull requests and incident re
 
 A few themes I want to explore:
 
-- **Commerce at scale** — what changes when a checkout has to survive a holiday traffic spike.
-- **Catalog, pricing and inventory** — the surprisingly tricky data problems behind "Add to cart".
-- **Engineering craft** — testing, observability, code review, and keeping systems boring.
+- **Backend at scale** — caching, pagination and search, and what actually moves latency numbers.
+- **Event-driven systems** — Kafka, Temporal, retries and failover when things go wrong.
+- **Building with AI tools** — how I shipped a workflow dashboard in two weeks with Claude and OpenCode.
+- **Engineering craft** — LLD/HLD, SOLID, code review, and keeping systems boring.
 
 > Opinions here are my own and don't represent my employer.
 
