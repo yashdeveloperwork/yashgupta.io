@@ -1,6 +1,6 @@
 # yashgupta.io
 
-Personal site, resume and blog of Yash Gupta — built with [Astro](https://astro.build) and deployed to GitHub Pages.
+Personal site and blog of Yash Gupta — built with [Astro](https://astro.build) and deployed to GitHub Pages.
 
 ## Develop
 
@@ -12,7 +12,7 @@ npm run build    # static output in dist/
 
 ## Edit content
 
-- **Bio, links, experience, skills:** `src/data/site.ts`
+- **Bio, links, highlights:** `src/data/site.ts`
 - **Blog posts:** add a Markdown file to `src/content/blog/` with frontmatter:
 
   ```md

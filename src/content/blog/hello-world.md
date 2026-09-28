@@ -5,7 +5,7 @@ pubDate: 2026-09-28
 tags: ['meta']
 ---
 
-Welcome to my corner of the internet. I'm Yash — a Software Development Engineer at Target, working on backend systems for e-commerce and retail.
+Welcome to my corner of the internet. I'm Yash — a Software Development Engineer working on backend systems for e-commerce and retail at a Fortune 100 company.
 
 ## Why a personal site?
 
