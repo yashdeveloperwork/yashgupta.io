@@ -1,0 +1,84 @@
+---
+const nav = [
+  { href: '/', label: 'About' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/blog', label: 'Blog' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="container">
+  <a class="logo" href="/" aria-label="Home">yg<span>.</span></a>
+  <nav aria-label="Main">
+    {nav.map((n) => <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    <button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const current =
+      root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+</script>
+
+<style>
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .logo span {
+    color: var(--accent);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.9375rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+  }
+  nav a[aria-current='page'] {
+    color: var(--text);
+    font-weight: 500;
+  }
+  button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+</style>

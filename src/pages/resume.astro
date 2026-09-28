@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, experience, skills } from '../data/site';
+---
+
+<Base title="Resume" description={`Resume of ${site.name}, ${site.role} focused on e-commerce and retail.`}>
+  <article>
+    <header>
+      <h1>{site.name}</h1>
+      <p class="muted">
+        {site.role} · {site.location} ·
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <button type="button" class="print" onclick="window.print()">Print / Save PDF</button>
+    </header>
+
+    <section>
+      <h2 class="eyebrow">Summary</h2>
+      <p>{site.intro}</p>
+    </section>
+
+    <section>
+      <h2 class="eyebrow">Experience</h2>
+      {
+        experience.map((r) => (
+          <div class="role">
+            <div class="role-head">
+              <h3>{r.title}</h3>
+              <span class="period">{r.period}</span>
+            </div>
+            <p class="org muted">{r.org}</p>
+            <ul>
+              {r.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2 class="eyebrow">Skills</h2>
+      <dl>
+        {
+          skills.map((s) => (
+            <div>
+              <dt>{s.group}</dt>
+              <dd>
+                {s.items.map((i) => (
+                  <span class="chip">{i}</span>
+                ))}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+  </article>
+</Base>
+
+<style>
+  header {
+    padding: 2rem 0 0.5rem;
+    position: relative;
+  }
+  h1 {
+    font-size: 2.4rem;
+    margin: 0 0 0.35rem;
+  }
+  header p {
+    margin: 0;
+  }
+  .print {
+    margin-top: 1.25rem;
+    padding: 0.45rem 0.9rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .print:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  section {
+    margin-top: 2.75rem;
+  }
+  .role + .role {
+    margin-top: 1.75rem;
+  }
+  .role-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .period {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .org {
+    margin: 0.15rem 0 0.5rem;
+    font-size: 0.9375rem;
+  }
+  ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+  li {
+    margin: 0.3rem 0;
+  }
+  dl {
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  dl > div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+  }
+  dt {
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+  dd {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .chip {
+    font-size: 0.8125rem;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+  @media (max-width: 480px) {
+    dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+  @media print {
+    :global(body > header),
+    :global(body > footer),
+    .print {
+      display: none;
+    }
+    :global(body) {
+      background: #fff;
+      color: #000;
+      font-size: 11pt;
+    }
+    section {
+      margin-top: 1.5rem;
+    }
+  }
+</style>
